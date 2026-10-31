@@ -151,7 +151,7 @@ Plain-text version:
 2. Select the region closest to you (top-right corner). I used **Asia Pacific (Mumbai) `ap-south-1`**.
 3. Search for **EC2** and open the dashboard.
 
-![EC2 Dashboard](screenshots/Screenshot2026-10-29 224206-Copy.png)
+screenshots/Screenshot2026-10-29 224206-Copy.png
 
 ---
 
