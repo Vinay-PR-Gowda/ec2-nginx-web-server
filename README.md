@@ -151,7 +151,7 @@ Plain-text version:
 2. Select the region closest to you (top-right corner). I used **Asia Pacific (Mumbai) `ap-south-1`**.
 3. Search for **EC2** and open the dashboard.
 
-![EC2 Dashboard](screenshots/01-ec2-dashboard.png)
+![EC2 Dashboard](screenshots/Screenshot2026-10-29 224206-Copy.png)
 
 ---
 
@@ -167,8 +167,6 @@ Click **Launch instance** and configure:
 | Key pair | Create new: `mywebserver-key` (RSA, `.pem`) |
 | Network | Default VPC, auto-assign public IP **enabled** |
 | Storage | 8 GiB gp3 (default) |
-
-![Name and AMI](screenshots/02-name-and-ami.png)
 
 ![Instance type and key pair](screenshots/03-instance-type-keypair.png)
 
@@ -211,9 +209,8 @@ ssh -i mywebserver-key.pem ubuntu@<your-instance-public-ip>
 
 Type `yes` when asked to trust the host fingerprint.
 
-![SSH connected](screenshots/06-ssh-connected.png)
 
-> **Windows users:** use PowerShell with the same command, or PuTTY with a converted `.ppk` key.
+*Windows users:** use PowerShell with the same command, or PuTTY with a converted `.ppk` key.
 
 ---
 
@@ -234,7 +231,6 @@ Always update first so you install the latest package versions with security pat
 sudo apt install nginx -y
 ```
 
-![Nginx installation](screenshots/07-nginx-install.png)
 
 ---
 
@@ -258,7 +254,6 @@ sudo systemctl status nginx
 
 You should see **`active (running)`** in green. Press `q` to exit.
 
-![Nginx status](screenshots/08-nginx-status.png)
 
 ---
 
@@ -291,7 +286,6 @@ http://<your-instance-public-ip>
 
 You should see the **"Welcome to nginx!"** page.
 
-![Default Nginx page](screenshots/09-default-nginx-page.png)
 
 > Use `http://`, not `https://`. HTTPS is not configured yet and port 443 is not open.
 
@@ -334,7 +328,6 @@ sudo nano /var/www/html/index.html
 
 Save in nano with `Ctrl + O`, `Enter`, then exit with `Ctrl + X`.
 
-![Editing index.html](screenshots/10-edit-index.png)
 
 > **Path note:** `/usr/share/nginx/html` is the document root on Amazon Linux/RHEL. On Ubuntu with `apt`, it is **`/var/www/html`**. The default Ubuntu page there is `index.nginx-debian.html`; your `index.html` takes priority over it.
 
@@ -350,7 +343,7 @@ ls -l /var/www/html/
 
 Refresh `http://<your-instance-public-ip>` in the browser.
 
-![Final website](screenshots/12-final-website.png)
+![Final website](screenshots/Screenshot2026-10-29 224003.png)
 
 You should now see your custom page.
 
@@ -365,7 +358,6 @@ sudo reboot
 
 Wait about a minute, reconnect over SSH, and run `sudo systemctl status nginx`. If it is `active (running)` without you starting it, the setup is reboot-safe.
 
-![Status after reboot](screenshots/11-after-reboot.png)
 
 > The **public IP can change after a stop/start** (a plain reboot keeps it). Use an Elastic IP if you need a permanent address (see [Future Improvements](#14-future-improvements)).
 
@@ -460,7 +452,6 @@ A `t2.micro` instance may be covered by the AWS Free Tier, but eligibility depen
 3. EC2 → Volumes → confirm no leftover volumes
 4. (Optional) Delete the security group and key pair
 
-![Terminate instance](screenshots/13-terminate-instance.png)
 
 *Stopping* an instance pauses compute charges but still bills for storage. *Terminating* deletes it.
 
@@ -506,33 +497,6 @@ apt install nginx -y
 systemctl enable nginx
 systemctl start nginx
 echo "<h1>Welcome to My Web Server</h1>" > /var/www/html/index.html
-```
-
----
-
-## 15. Project Structure
-
-```
-ec2-nginx-web-server/
-├── README.md
-├── .gitignore
-├── index.html              # the web page deployed to the server
-├── user-data.sh            # optional bootstrap script
-└── screenshots/
-    ├── 01-ec2-dashboard.png
-    ├── 02-name-and-ami.png
-    ├── 03-instance-type-keypair.png
-    ├── 04-security-group.png
-    ├── 05-instance-running.png
-    ├── 06-ssh-connected.png
-    ├── 07-nginx-install.png
-    ├── 08-nginx-status.png
-    ├── 09-default-nginx-page.png
-    ├── 10-edit-index.png
-    ├── 11-after-reboot.png
-    ├── 12-final-website.png
-    └── 13-terminate-instance.png
-```
 
 ---
 
